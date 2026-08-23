@@ -1,0 +1,8 @@
+services:
+  threatflow:
+    build: .
+    container_name: threatflow
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./threatflow.db:/app/threatflow.db
