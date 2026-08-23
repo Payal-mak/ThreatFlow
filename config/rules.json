@@ -1,0 +1,44 @@
+{
+  "ruleset_version": 1,
+  "risk_levels": [
+    { "level": "LOW", "min": 0, "max": 29 },
+    { "level": "MEDIUM", "min": 30, "max": 59 },
+    { "level": "HIGH", "min": 60, "max": 79 },
+    { "level": "CRITICAL", "min": 80, "max": null }
+  ],
+  "rules": [
+    {
+      "id": "HIGH_AMOUNT",
+      "version": 1,
+      "score": 40,
+      "description": "Transaction amount exceeds the high-value threshold.",
+      "condition": { "field": "amount", "op": ">", "value": 10000 }
+    },
+    {
+      "id": "LOCATION_MISMATCH",
+      "version": 1,
+      "score": 40,
+      "description": "Transaction location does not match the account's known location.",
+      "condition": { "field": "location_mismatch", "op": "==", "value": true }
+    },
+    {
+      "id": "HIGH_AMOUNT_LOCATION_MISMATCH",
+      "version": 1,
+      "score": 80,
+      "description": "Compound signal: high-value transaction combined with a location mismatch. Stacks on top of the two atomic rules above as an extra bonus for the compound pattern, matching real fraud-scoring practice.",
+      "condition": {
+        "AND": [
+          { "field": "amount", "op": ">", "value": 10000 },
+          { "field": "location_mismatch", "op": "==", "value": true }
+        ]
+      }
+    },
+    {
+      "id": "HIGH_SOURCE_RISK",
+      "version": 1,
+      "score": 30,
+      "description": "One or more contributing alert sources reported a high risk score for this event.",
+      "condition": { "field": "source_risk_score", "op": ">=", "value": 70 }
+    }
+  ]
+}
