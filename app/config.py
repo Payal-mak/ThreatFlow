@@ -6,6 +6,7 @@ class Settings(BaseSettings):
 
     app_name: str = "ThreatFlow"
     database_url: str = "sqlite:///./threatflow.db"
+    merge_window_seconds: int = 300
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
