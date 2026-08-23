@@ -44,9 +44,6 @@ def create_alert(db: Session, source: str | None, alert_in: AlertCreate) -> Aler
         meta_data=alert_in.metadata or alert_in.extra_data,
         extra_data=alert_in.extra_data or alert_in.metadata,
     )
-
-
-
     db.add(db_alert)
     db.commit()
     db.refresh(db_alert)

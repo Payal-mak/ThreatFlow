@@ -122,6 +122,3 @@ class AlertResponse(BaseModel):
                 "extra_data": getattr(data, "extra_data", None) or meta_val,
             }
         return data
-
-
-
